@@ -4,7 +4,6 @@ var express = require('express')
       ,path = require('path')
       ,app = express()
       ,fs = require('fs')
-      ,fetch = require('node-fetch')
       ,rp = require('request-promise');
 
 
