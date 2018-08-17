@@ -1,0 +1,94 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+</head>
+
+<style type="text/css">
+	.screen{
+		padding-left: 25px;
+	}
+
+	.collapsible-body{
+		background-color: #fffde7;
+	}
+
+</style>
+
+<div class = "screen">
+<h1 class = "text-center"> Student Comments </h1>
+<br></br>
+
+<a href= '/topics'> Go Back </a>
+
+<br> </br>
+<ul>
+
+    <% for(i = 0; i < participantsData.length ; i++) {%>
+    <% postArr = postCountData.get(participantsData[i].username) %>
+    
+
+    <% if(postArr != undefined) {%>
+    <% realPostCount = 0 %>
+    <% for(index = 0 ; index < postArr.length; index ++) {%>
+    <% if(postArr[index] !== ""){ %>
+    <% realPostCount ++  %>
+    <% }%>
+    <%}%>
+
+    <% if (participantsData[i].username !== "system" ){%>
+    <li>
+    <div class = "collapsible-header" data-toggle="collapse" data-target='.<%= i %>'   id = '<%= i %>'>
+		 <%= participantsData[i].username    + ' posted ' +  realPostCount + ' time(s)' %> 
+
+		 <% if(participantsData[i].post_count > 2){ %>
+
+		 <script type="text/javascript"> 
+		 	
+			$('#' + '<%= i %>').css("background-color","#4caf50")
+		
+		  </script>
+
+		 <%} else{%>
+		 
+		 <script type="text/javascript"> 
+		 	
+			$('#' + '<%= i %>').css("background-color","#ef5350")
+		
+		 </script>
+
+		 <%}%>
+    </div>
+
+		<br>	
+		<% for(j = 0; j < postArr.length ; j++) {%>
+		<% if(postArr[j] !== "" ){%>
+		<div  class=" <%= i %> collapsible-body section" >	
+			<%= postArr[j] %>
+			
+		</div>
+		<div class="divider"></div>
+
+		<%}%>
+		<%}%>
+		
+	</li>
+	<%}%>
+	<%}%>
+<% } %>
+</ul>
+</div>
+
+
+<script> 
+
+var bodyElements= document.getElementsByClassName('collapsible-body'); 
+for(i = 0; i < bodyElements.length; i ++){
+	bodyElements[i].innerHTML = bodyElements[i].innerText || bodyElements[i].textContent;
+}
+
+</script>
